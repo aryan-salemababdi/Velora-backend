@@ -1,7 +1,21 @@
 package app
 
-type Service struct{}
+import (
+	"gorm.io/gorm"
+)
 
-func NewService() *Service  { return &Service{} }
+type Service struct {
+	DB *gorm.DB
+}
 
-func (s *Service) Greet() string { return  "hello from Velora!" }
+func NewService(db *gorm.DB) *Service {
+	return &Service{DB: db}
+}
+
+func (s *Service) PingDB() error {
+	sqlDB, err := s.DB.DB()
+	if err != nil {
+		return err
+	}
+	return sqlDB.Ping()
+}
