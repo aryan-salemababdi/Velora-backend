@@ -7,6 +7,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
+	middleware "backend/src/common/middlewares"
+	"backend/src/modules/admin"
 	"backend/src/modules/app"
 
 	velora "github.com/aryan-salemababdi/Velora/app"
@@ -31,7 +33,14 @@ func main() {
 
 	a.UseGlobalMiddleware("logging", "cors", "auth")
 
+	velora.RegisterMiddleware("adminGuard", middleware.AdminGuard)
+
 	if err := a.RegisterModule("app", app.New()); err != nil {
+		log.Fatal(err)
+	}
+
+	//registering another module
+	if err := a.RegisterModule("admin", admin.New()); err != nil {
 		log.Fatal(err)
 	}
 

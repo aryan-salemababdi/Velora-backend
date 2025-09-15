@@ -17,6 +17,7 @@ func New() *AppModule { return &AppModule{} }
 func (m *AppModule) Register(container *dig.Container, app *fiber.App) error {
 	cfg := velora.LoadConfig("config.yaml")
 	db := orm.InitDB(cfg)
+
 	if err := container.Provide(func() *gorm.DB { return db }); err != nil {
 		return err
 	}
@@ -26,6 +27,7 @@ func (m *AppModule) Register(container *dig.Container, app *fiber.App) error {
 	if err := container.Provide(NewController); err != nil {
 		return err
 	}
+
 	return container.Invoke(func(ctrl *Controller) {
 		ctrl.RegisterRoutes(app)
 	})
