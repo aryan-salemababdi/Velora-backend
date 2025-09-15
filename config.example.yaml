@@ -4,3 +4,9 @@ database:
   host: your_host
   port: 5432
   name: your_database
+smtp:
+  from: "your-email@example.com"
+  password: "your-email-password"
+  to: "admin@example.com"
+  host: "smtp.gmail.com"
+  port: "587"

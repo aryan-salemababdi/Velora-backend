@@ -10,6 +10,7 @@ import (
 	middleware "backend/src/common/middlewares"
 	"backend/src/modules/admin"
 	"backend/src/modules/app"
+	"backend/src/modules/contact"
 
 	velora "github.com/aryan-salemababdi/Velora/app"
 )
@@ -41,6 +42,10 @@ func main() {
 
 	//registering another module
 	if err := a.RegisterModule("admin", admin.New()); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := a.RegisterModule("contact", contact.New()); err != nil {
 		log.Fatal(err)
 	}
 
